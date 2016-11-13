@@ -17,7 +17,6 @@
 	<script type="text/javascript" src="Tangle/TangleKit/BVTouchable.js"></script>
 	<script type="text/javascript" src="Tangle/TangleKit/TangleKit.js"></script>
 
-	<!-- example -->
 	<script type="text/javascript">
 
 		function setUpTangle () {
@@ -26,42 +25,49 @@
 
 			var tangle = new Tangle(element, {
 				initialize: function () {
-					this.q0ARR             = 3.0;
-					this.q0DeltaARR        = 1.0;
-					this.q0CAGR            = this.q0DeltaARR * 4 / this.q0ARR
-					this.growthPersistence = .85;
+					this.q0ARR             			= 3.0;
+					this.q0DeltaARR        			= 1.0;
+					this.q0CAGR            			= Math.pow( (1 + this.q0DeltaARR / this.q0ARR), 4 ) - 1
+					this.growthPersistence 			= .85;
 				},
 				update: function () {
 
-					this.q1DeltaARR = this.q0DeltaARR * Math.pow(1 + this.growthPersistence, 1/4)  
-					this.q2DeltaARR = this.q1DeltaARR * Math.pow(1 + this.growthPersistence, 1/4)
-					this.q3DeltaARR = this.q2DeltaARR * Math.pow(1 + this.growthPersistence, 1/4)
-					this.q4DeltaARR = this.q3DeltaARR * Math.pow(1 + this.growthPersistence, 1/4)
-					this.q5DeltaARR = this.q4DeltaARR * Math.pow(1 + this.growthPersistence, 1/4) 
-					this.q6DeltaARR = this.q5DeltaARR * Math.pow(1 + this.growthPersistence, 1/4) 
-					this.q7DeltaARR = this.q6DeltaARR * Math.pow(1 + this.growthPersistence, 1/4) 
-					this.q8DeltaARR = this.q7DeltaARR * Math.pow(1 + this.growthPersistence, 1/4) 
+					// Need to recalculated the initial CAGR if values change
+					this.q0CAGR     = Math.pow( (1 + this.q0DeltaARR / this.q0ARR), 4 ) - 1
 
 					this.q1ARR      = this.q0ARR + this.q0DeltaARR
+					this.q1DeltaARR = this.q0DeltaARR * Math.pow(1 + this.q0CAGR, 1/4) * Math.pow(this.growthPersistence, 1/4)
+					this.q1CAGR     = Math.pow( (1 + this.q1DeltaARR / this.q1ARR), 4 ) - 1
+
 					this.q2ARR      = this.q1ARR + this.q1DeltaARR
+					this.q2DeltaARR = this.q1DeltaARR * Math.pow(1 + this.q1CAGR, 1/4) * Math.pow(this.growthPersistence, 1/4)
+					this.q2CAGR     = Math.pow( (1 + this.q2DeltaARR / this.q2ARR), 4 ) - 1
+
 					this.q3ARR      = this.q2ARR + this.q2DeltaARR
+					this.q3DeltaARR = this.q2DeltaARR * Math.pow(1 + this.q2CAGR, 1/4) * Math.pow(this.growthPersistence, 1/4)
+					this.q3CAGR     = Math.pow( (1 + this.q3DeltaARR / this.q3ARR), 4 ) - 1
+
 					this.q4ARR      = this.q3ARR + this.q3DeltaARR
+					this.q4DeltaARR = this.q3DeltaARR * Math.pow(1 + this.q3CAGR, 1/4) * Math.pow(this.growthPersistence, 1/4)
+					this.q4CAGR     = Math.pow( (1 + this.q4DeltaARR / this.q4ARR), 4 ) - 1
+
 					this.q5ARR      = this.q4ARR + this.q4DeltaARR
+					this.q5DeltaARR = this.q4DeltaARR * Math.pow(1 + this.q4CAGR, 1/4) * Math.pow(this.growthPersistence, 1/4)
+					this.q5CAGR     = Math.pow( (1 + this.q5DeltaARR / this.q5ARR), 4 ) - 1
+
 					this.q6ARR      = this.q5ARR + this.q5DeltaARR
+					this.q6DeltaARR = this.q5DeltaARR * Math.pow(1 + this.q5CAGR, 1/4) * Math.pow(this.growthPersistence, 1/4)
+					this.q6CAGR     = Math.pow( (1 + this.q6DeltaARR / this.q6ARR), 4 ) - 1
+
 					this.q7ARR      = this.q6ARR + this.q6DeltaARR
+					this.q7DeltaARR = this.q6DeltaARR * Math.pow(1 + this.q6CAGR, 1/4) * Math.pow(this.growthPersistence, 1/4)
+					this.q7CAGR     = Math.pow( (1 + this.q7DeltaARR / this.q7ARR), 4 ) - 1
+
 					this.q8ARR      = this.q7ARR + this.q7DeltaARR
+					this.q8DeltaARR = this.q7DeltaARR * Math.pow(1 + this.q7CAGR, 1/4) * Math.pow(this.growthPersistence, 1/4)
+					this.q8CAGR     = Math.pow( (1 + this.q8DeltaARR / this.q8ARR), 4 ) - 1
 
-					this.q0CAGR     = this.q0DeltaARR * 4 / this.q0ARR
-					this.q1CAGR     = this.q1DeltaARR * 4 / this.q1ARR
-					this.q1CAGR     = this.q1DeltaARR * 4 / this.q1ARR
-					this.q2CAGR     = this.q2DeltaARR * 4 / this.q2ARR
-					this.q3CAGR     = this.q3DeltaARR * 4 / this.q3ARR
-					this.q4CAGR     = this.q4DeltaARR * 4 / this.q4ARR
-					this.q5CAGR     = this.q5DeltaARR * 4 / this.q5ARR
-					this.q6CAGR     = this.q6DeltaARR * 4 / this.q6ARR
-					this.q7CAGR     = this.q7DeltaARR * 4 / this.q7ARR
-					this.q8CAGR     = this.q8DeltaARR * 4 / this.q8ARR
-
+					// Calculate valuations
 					this.q0Val      = this.q0ARR * 
 										(1 + this.q0CAGR * Math.pow(this.growthPersistence,1)) *	
 										(1 + this.q0CAGR * Math.pow(this.growthPersistence,2)) * 
@@ -133,7 +139,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>ARR</td>
+				<td>Ending ARR</td>
 				<td class="money"><span data-var="q0ARR" data-format="%.1f"></span></td>
 				<td class="money"><span data-var="q1ARR" data-format="%.1f"></span></td>
 				<td class="money"><span data-var="q2ARR" data-format="%.1f"></span></td>
