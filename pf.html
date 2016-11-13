@@ -83,6 +83,12 @@
 										(1 + this.q4CAGR * Math.pow(this.growthPersistence,4)) * 
 										(1 + this.q4CAGR * Math.pow(this.growthPersistence,5))
 				
+					this.q6Val      = this.q6ARR * 
+										(1 + this.q6CAGR * Math.pow(this.growthPersistence,1)) *	
+										(1 + this.q6CAGR * Math.pow(this.growthPersistence,2)) * 
+										(1 + this.q6CAGR * Math.pow(this.growthPersistence,3)) * 
+										(1 + this.q6CAGR * Math.pow(this.growthPersistence,4)) * 
+										(1 + this.q6CAGR * Math.pow(this.growthPersistence,5))
 
 					this.q8Val      = this.q8ARR * 
 										(1 + this.q8CAGR * Math.pow(this.growthPersistence,1)) *	
@@ -184,7 +190,7 @@
 	        	<td></td>
 	        	<td class="money"><span data-var="q4Val" data-format="%.1f"></td>
 	        	<td></td>
-	        	<td></td>
+	        	<td class="money"><span data-var="q6Val" data-format="%.1f"></td>
 	        	<td></td>
 	        	<td class="money"><span data-var="q8Val" data-format="%.1f"></td>
 	        </tr>
